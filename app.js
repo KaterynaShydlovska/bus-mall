@@ -12,7 +12,6 @@ function Product(name) {
   this.views = 0;
   this.votes = 0;
   allProducts.push(this);
-  
 }
 
 function makeRandom() {
@@ -31,12 +30,8 @@ function renderProducts() {
     renderProducts();
   }
 
-
-
-
-  
   allProducts[uniquePicsArray[0]].views++;
- 
+
   // console.log('EXISTS?', allProducts[uniquePicsArray[0]]);
 
   leftImageEl.src = allProducts[uniquePicsArray[0]].path;
