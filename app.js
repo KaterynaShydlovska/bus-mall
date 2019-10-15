@@ -93,7 +93,7 @@ function handleClick() {
     var ulEl = document.getElementById('list');
     for (var a = 0; a < allProducts.length; a++){
       var liEl = document.createElement('li');
-      liEl.textContent = `${allProducts[a].name}: ${allProducts[a].views}, ${allProducts[a].votes}`;
+      liEl.textContent = `${allProducts[a].name}: views - ${allProducts[a].views}, votes - ${allProducts[a].votes}`;
       ulEl.appendChild(liEl);
     }
   }
