@@ -12,6 +12,7 @@ function Product(name) {
   this.views = 0;
   this.votes = 0;
   allProducts.push(this);
+  
 }
 
 function makeRandom() {
@@ -33,16 +34,15 @@ function renderProducts() {
 
 
 
-  //add views here
+  
   allProducts[uniquePicsArray[0]].views++;
-  //get a random index
-  //display a product whose index is the random number
-  console.log('EXISTS?', allProducts[uniquePicsArray[0]]);
+ 
+  // console.log('EXISTS?', allProducts[uniquePicsArray[0]]);
 
   leftImageEl.src = allProducts[uniquePicsArray[0]].path;
   leftImageEl.name = allProducts[uniquePicsArray[0]].name;
   leftImageEl.title = allProducts[uniquePicsArray[0]].name;
-  //add views here
+
   allProducts[uniquePicsArray[1]].views++;
   centerImageEl.src = allProducts[uniquePicsArray[1]].path;
   centerImageEl.name = allProducts[uniquePicsArray[1]].name;
@@ -54,6 +54,7 @@ function renderProducts() {
   rightImageEl.title = allProducts[uniquePicsArray[2]].name;
 
 }
+
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -75,8 +76,9 @@ new Product('usb');
 new Product('water-can');
 new Product('wine-glass');
 
-var amountOfClicks = 0;
-var numberOfrounds = 3;
+Product.amountOfClicks = 0;
+var numberOfrounds = 25;
+
 function handleClick() {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
@@ -85,19 +87,28 @@ function handleClick() {
       allProducts[i].votes++;
     }
   }
-  amountOfClicks++;
+  Product.amountOfClicks++;
   renderProducts();
-  
-  
-  if (numberOfrounds === amountOfClicks) {
+
+
+  if (numberOfrounds === Product.amountOfClicks) {
 
     containerEl.remove();
-  } 
 
+    var ulEl = document.getElementById('list');
+    for (var a = 0; a < allProducts.length; a++){
+      var liEl = document.createElement('li');
+      liEl.textContent = `${allProducts[a].name}: ${allProducts[a].views}, ${allProducts[a].votes}`;
+      ulEl.appendChild(liEl);
+    }
+  }
 }
 
 containerEl.addEventListener('click', handleClick);
 
 renderProducts();
+
+
+
 
 
