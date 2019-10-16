@@ -143,9 +143,11 @@ function makeChart() {
     },
     options: {
       scales: {
-        // barPercentage: 0.3,
         yAxes: [{
           ticks: {
+            // fontSize: 12,
+            // lineHeight: 1.2,
+            // padding: 0,
             max: 8,
             min: 0,
             stepSize: 1,
