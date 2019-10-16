@@ -104,7 +104,7 @@ var getChartData = function () {
   for (var i = 0; i < allProducts.length; i++) {
     Product.namesData.push(allProducts[i].name);
     Product.votesData.push(allProducts[i].votes);
-    // Product.viewsData.push(allProducts[i].views);
+    Product.viewsData.push(allProducts[i].views);
 
   }
 };
@@ -115,6 +115,7 @@ displayPics();
 function makeChart() {
   getChartData();
   var ctx = document.getElementById('myChart').getContext('2d');
+  // var color = chartColor();
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -122,32 +123,23 @@ function makeChart() {
       datasets: [{
         label: '# of Votes',
         data: Product.votesData,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: chartColorOne(),
+        borderColor: chartColorOne(),
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: Product.viewsData,
+        backgroundColor: chartColorTwo(),
+        borderColor: chartColorTwo(),
         borderWidth: 1
       }]
     },
     options: {
       scales: {
+        xAxes:[{ ticks: { fontSize: 20, fontFamily: "'Roboto', sans-serif", fontColor: '#666', fontStyle: '500' } }],
         yAxes: [{
           ticks: {
-            // fontSize: 12,
-            // lineHeight: 1.2,
-            // padding: 0,
             max: 8,
             min: 0,
             stepSize: 1,
@@ -159,4 +151,34 @@ function makeChart() {
   });
 }
 
+function chartColorOne() {
+  var colorA = [];
+  for (var i = 0; i < Product.namesData.length; i++){
+    // 'rgba(300, 100, 132, 0.2)'
+    var string = 'rgba(255, 99, 132, 0.5)';
+    colorA.push(string);
+    
+  }
+  
+  return colorA;
 
+}
+
+function chartColorTwo() {
+  var colorB = [];
+  for (var i = 0; i < Product.namesData.length; i++) {
+    // 'rgba(300, 100, 132, 0.2)'
+    var string = 'rgba(255,255,0, 0.8)';
+    colorB.push(string);
+
+  }
+  
+  return colorB;
+
+}
+
+
+
+// function randomColor() {
+//   return Math.floor(Math.random() * Math.floor(255));
+// }
