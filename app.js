@@ -5,7 +5,7 @@ var rightImageEl = document.getElementById('right');
 var containerEl = document.getElementById('image_container');
 
 var allProducts = [];
-
+// create constructor function
 function Product(name) {
   this.name = name;
   this.path = `images/${name}.jpg`;
@@ -38,14 +38,14 @@ function uniquePicsArrayGenerator() {
   }
   console.log('Done : ', uniqueProductIndex);
 }
-
+// show up random pictures
 function displayPics(){
   uniquePicsArrayGenerator();
   for (var i = 0; i < uniqueProductIndex.length; i++){
 
-
+    // remove last picture
     var temporary = uniqueProductIndex.shift();
-    // console.log('temp:' + temporary);
+
     // console.log('What is the problem?!!!!!' + allProducts[temporary]);
 
     Product.pictureElementsArray[i].src = allProducts[temporary].path;
@@ -54,6 +54,8 @@ function displayPics(){
     // console.log('views ' + allProducts[temporary].views);
   }
 }
+
+
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -89,13 +91,20 @@ function handleClick() {
   }
   Product.amountOfClicks++;
   displayPics();
+  if (localStorage.data) {
+    // if already has data, get data from local storege
+    storegeGetData();
+  } else {
+    // if no data go store data into local storage
+    storage();
+  }
+
 
   //GAME IS OVER, DO GAME OVER THINGS
   if (numberOfrounds === Product.amountOfClicks) {
 
     containerEl.remove();
     makeChart();
-    storage();
   }
 }
 Product.namesData = [];
@@ -111,9 +120,10 @@ var getChartData = function () {
   }
 };
 
-
 containerEl.addEventListener('click', handleClick);
 displayPics();
+
+
 
 function makeChart() {
   getChartData();
@@ -140,7 +150,7 @@ function makeChart() {
     },
     options: {
       scales: {
-        xAxes:[{ ticks: { fontSize: 20, fontFamily: "'Roboto', sans-serif", fontColor: '#666', fontStyle: '500' } }],
+        xAxes:[{ ticks: { fontSize: 20, fontFamily: '\'Roboto\', sans-serif', fontColor: '#666', fontStyle: '500' } }],
         yAxes: [{
           ticks: {
             max: 8,
@@ -160,9 +170,9 @@ function chartColorOne() {
     // 'rgba(300, 100, 132, 0.2)'
     var string = 'rgba(255, 99, 132, 0.5)';
     colorA.push(string);
-    
+
   }
-  
+
   return colorA;
 
 }
@@ -175,28 +185,36 @@ function chartColorTwo() {
     colorB.push(string);
 
   }
-  
   return colorB;
-
 }
-
-
-
-function storage() {
-  var numberOfProductStringified = JSON.stringify(allProducts);
-  console.log('is:' + numberOfProductStringified);
-  localStorage.setItem('data', numberOfProductStringified);
-}
-
-function storegeGetData() {
-  numberOfProduct
-}
-
-
 
 // function randomColor() {
 //   return Math.floor(Math.random() * Math.floor(255));
 // }
+
+
+// create Local storage
+function storage() {
+  var numberOfProductStringified = JSON.stringify(allProducts);
+  // console.log('storage' + numberOfProductStringified);
+  localStorage.setItem('data', numberOfProductStringified);
+}
+
+function storegeGetData() {
+  var numberOfProduct = localStorage.getItem('data');
+  var parsedNumberOfProduct = JSON.parse(numberOfProduct);
+  for (var i = 0; i < parsedNumberOfProduct.length; i++){
+    new Product(parsedNumberOfProduct[i].name);
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
