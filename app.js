@@ -90,10 +90,12 @@ function handleClick() {
   Product.amountOfClicks++;
   displayPics();
 
+  //GAME IS OVER, DO GAME OVER THINGS
   if (numberOfrounds === Product.amountOfClicks) {
 
     containerEl.remove();
     makeChart();
+    storage();
   }
 }
 Product.namesData = [];
@@ -108,6 +110,7 @@ var getChartData = function () {
 
   }
 };
+
 
 containerEl.addEventListener('click', handleClick);
 displayPics();
@@ -179,6 +182,23 @@ function chartColorTwo() {
 
 
 
+function storage() {
+  var numberOfProductStringified = JSON.stringify(allProducts);
+  console.log('is:' + numberOfProductStringified);
+  localStorage.setItem('data', numberOfProductStringified);
+}
+
+function storegeGetData() {
+  numberOfProduct
+}
+
+
+
 // function randomColor() {
 //   return Math.floor(Math.random() * Math.floor(255));
 // }
+
+
+
+
+
