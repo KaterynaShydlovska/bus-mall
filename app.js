@@ -5,7 +5,6 @@ var rightImageEl = document.getElementById('right');
 var containerEl = document.getElementById('image_container');
 
 var allProducts = [];
-// allProducts.uniquePicsArray = [];
 
 function Product(name) {
   this.name = name;
@@ -22,7 +21,6 @@ Product.pictureElementsArray = [
   rightImageEl
 ];
 
-
 //Hold index for unique products
 var uniqueProductIndex = [];
 
@@ -30,20 +28,16 @@ function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
 
-
-//Controls random numbers based on unique pics array index 
+//Controls random numbers based on unique pics array index
 function uniquePicsArrayGenerator() {
   while (uniqueProductIndex.length < 6) {
     var random = makeRandom();
     while (!uniqueProductIndex.includes(random)) {
-      
       uniqueProductIndex.push(random);
     }
   }
-
   console.log('Done : ', uniqueProductIndex);
 }
-
 
 function displayPics(){
   uniquePicsArrayGenerator();
@@ -55,50 +49,11 @@ function displayPics(){
     // console.log('What is the problem?!!!!!' + allProducts[temporary]);
 
     Product.pictureElementsArray[i].src = allProducts[temporary].path;
-
     Product.pictureElementsArray[i].title = allProducts[temporary].name;
     allProducts[temporary].views += 1;
-
+    // console.log('views ' + allProducts[temporary].views);
   }
 }
-
-
-// function makeRandom() {
-//   return Math.floor(Math.random() * allProducts.length);
-// }
-
-// var uniquePicsArray = [];
-
-// function renderProducts() {
-
-//   uniquePicsArray[0] = makeRandom();
-//   uniquePicsArray[1] = makeRandom();
-//   uniquePicsArray[2] = makeRandom();
-
-//   if (uniquePicsArray[0] === uniquePicsArray[1] || uniquePicsArray[1] === uniquePicsArray[2] || uniquePicsArray[0] === uniquePicsArray[2]) {
-//     renderProducts();
-//   }
-
-//   allProducts[uniquePicsArray[0]].views++;
-
-//   console.log('EXISTS?', allProducts[uniquePicsArray[0]]);
-
-//   leftImageEl.src = allProducts[uniquePicsArray[0]].path;
-//   leftImageEl.name = allProducts[uniquePicsArray[0]].name;
-//   leftImageEl.title = allProducts[uniquePicsArray[0]].name;
-
-//   allProducts[uniquePicsArray[1]].views++;
-//   centerImageEl.src = allProducts[uniquePicsArray[1]].path;
-//   centerImageEl.name = allProducts[uniquePicsArray[1]].name;
-//   centerImageEl.title = allProducts[uniquePicsArray[1]].name;
-
-//   allProducts[uniquePicsArray[2]].views++;
-//   rightImageEl.src = allProducts[uniquePicsArray[2]].path;
-//   rightImageEl.name = allProducts[uniquePicsArray[2]].name;
-//   rightImageEl.title = allProducts[uniquePicsArray[2]].name;
-
-// }
-
 new Product('bag');
 new Product('banana');
 new Product('bathroom');
@@ -121,7 +76,7 @@ new Product('water-can');
 new Product('wine-glass');
 
 Product.amountOfClicks = 0;
-var numberOfrounds = 26;
+var numberOfrounds = 25;
 
 function handleClick() {
   var chosenImage = event.target.title;
@@ -133,10 +88,7 @@ function handleClick() {
     }
   }
   Product.amountOfClicks++;
-  // renderProducts();
   displayPics();
-
-
 
   if (numberOfrounds === Product.amountOfClicks) {
 
@@ -146,20 +98,19 @@ function handleClick() {
 }
 Product.namesData = [];
 Product.votesData = [];
+Product.viewsData = [];
 
 var getChartData = function () {
   for (var i = 0; i < allProducts.length; i++) {
     Product.namesData.push(allProducts[i].name);
     Product.votesData.push(allProducts[i].votes);
+    // Product.viewsData.push(allProducts[i].views);
 
   }
 };
+
 containerEl.addEventListener('click', handleClick);
-
-// renderProducts();
 displayPics();
-
-
 
 function makeChart() {
   getChartData();
@@ -192,9 +143,10 @@ function makeChart() {
     },
     options: {
       scales: {
+        // barPercentage: 0.3,
         yAxes: [{
           ticks: {
-            max: 10,
+            max: 8,
             min: 0,
             stepSize: 1,
             beginAtZero: true
