@@ -5,7 +5,7 @@ var rightImageEl = document.getElementById('right');
 var containerEl = document.getElementById('image_container');
 
 var allProducts = [];
-
+// reate consrtuctor
 function Product(name) {
   this.name = name;
   this.path = `images/${name}.jpg`;
@@ -43,7 +43,7 @@ function displayPics(){
   uniquePicsArrayGenerator();
   for (var i = 0; i < uniqueProductIndex.length; i++){
 
-
+    // remove last pics
     var temporary = uniqueProductIndex.shift();
     // console.log('temp:' + temporary);
     // console.log('What is the problem?!!!!!' + allProducts[temporary]);
@@ -54,27 +54,36 @@ function displayPics(){
     // console.log('views ' + allProducts[temporary].views);
   }
 }
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('usb');
-new Product('water-can');
-new Product('wine-glass');
 
+if (localStorage.data) {
+  console.log('found data');
+  // if have data get it
+  storegeGetData();
+} else {
+  console.log('making data');
+  // if empty add data
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('usb');
+  new Product('water-can');
+  new Product('wine-glass');
+  storage();
+}
 Product.amountOfClicks = 0;
 var numberOfrounds = 25;
 
@@ -90,6 +99,8 @@ function handleClick() {
   Product.amountOfClicks++;
   displayPics();
 
+
+  //GAME IS OVER, DO GAME OVER THINGS
   if (numberOfrounds === Product.amountOfClicks) {
 
     containerEl.remove();
@@ -108,9 +119,9 @@ var getChartData = function () {
 
   }
 };
-
 containerEl.addEventListener('click', handleClick);
 displayPics();
+
 
 function makeChart() {
   getChartData();
@@ -137,7 +148,7 @@ function makeChart() {
     },
     options: {
       scales: {
-        xAxes:[{ ticks: { fontSize: 20, fontFamily: "'Roboto', sans-serif", fontColor: '#666', fontStyle: '500' } }],
+        xAxes:[{ ticks: { fontSize: 20, fontFamily: '\'Roboto\', sans-serif', fontColor: '#666', fontStyle: '500' } }],
         yAxes: [{
           ticks: {
             max: 8,
@@ -157,11 +168,9 @@ function chartColorOne() {
     // 'rgba(300, 100, 132, 0.2)'
     var string = 'rgba(255, 99, 132, 0.5)';
     colorA.push(string);
-    
-  }
-  
-  return colorA;
 
+  }
+  return colorA;
 }
 
 function chartColorTwo() {
@@ -170,15 +179,40 @@ function chartColorTwo() {
     // 'rgba(300, 100, 132, 0.2)'
     var string = 'rgba(255,255,0, 0.8)';
     colorB.push(string);
-
   }
-  
   return colorB;
-
 }
-
-
 
 // function randomColor() {
 //   return Math.floor(Math.random() * Math.floor(255));
 // }
+
+
+// create Local storage
+function storage() {
+  var numberOfProductStringified = JSON.stringify(allProducts);
+  // console.log('storage' + numberOfProductStringified);
+  localStorage.setItem('data', numberOfProductStringified);
+}
+
+function storegeGetData() {
+  var numberOfProduct = localStorage.getItem('data');
+  var parsedNumberOfProduct = JSON.parse(numberOfProduct);
+  for (var i = 0; i < parsedNumberOfProduct.length; i++){
+    new Product(parsedNumberOfProduct[i].name);
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
