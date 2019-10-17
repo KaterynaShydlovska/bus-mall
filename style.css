@@ -1,1 +1,39 @@
+body{
+width: 90%;
+margin: auto;
+margin-top: 40px;
+border: 1px solid rgb(41, 39, 39);
+padding: 1px solid gray;
+background-color: rgb(221, 240, 240);
 
+}
+h1{
+  text-align: center;
+  color: rgb(110, 107, 107);
+  font-family: 'Montserrat Subrayada', sans-serif;
+  font-size: 45px;
+}
+
+#image_container{
+  /* width: 950px; */
+  margin-top: 100px;
+  /* border: 1px solid black; */
+  
+  
+  
+}
+
+ img{
+  text-align: center;
+  margin-left: 10%;
+  width: 350px;
+  height: 350px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+img:hover{
+  background-color: rgb(145, 151, 151);
+  -webkit-transition: 350ms;
+  transition: 350ms;
+}
