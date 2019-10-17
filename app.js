@@ -4,6 +4,11 @@ var centerImageEl = document.getElementById('center');
 var rightImageEl = document.getElementById('right');
 var containerEl = document.getElementById('image_container');
 
+var amountOfClicks = JSON.parse(localStorage.getItem('click'));
+if (amountOfClicks === null) {
+  amountOfClicks = 0;
+}
+var numberOfrounds = 25;
 var allProducts = [];
 // reate consrtuctor
 function Product(name) {
@@ -84,8 +89,6 @@ if (localStorage.data) {
   new Product('wine-glass');
   storage();
 }
-Product.amountOfClicks = 0;
-var numberOfrounds = 25;
 
 function handleClick() {
   var chosenImage = event.target.title;
@@ -96,15 +99,17 @@ function handleClick() {
       allProducts[i].votes++;
     }
   }
-  Product.amountOfClicks++;
+  amountOfClicks++;
+  storage();
   displayPics();
 
 
   //GAME IS OVER, DO GAME OVER THINGS
-  if (numberOfrounds === Product.amountOfClicks) {
+  if (numberOfrounds === amountOfClicks) {
 
     containerEl.remove();
     makeChart();
+    localStorage.clear();
   }
 }
 Product.namesData = [];
@@ -148,15 +153,8 @@ function makeChart() {
     },
     options: {
       scales: {
-        xAxes:[{ ticks: { fontSize: 20, fontFamily: '\'Roboto\', sans-serif', fontColor: '#666', fontStyle: '500' } }],
-        yAxes: [{
-          ticks: {
-            max: 8,
-            min: 0,
-            stepSize: 1,
-            beginAtZero: true
-          }
-        }]
+        xAxes: [{ ticks: { fontSize: 22, fontFamily: '\'Roboto\', sans-serif', fontColor: 'yellow', fontStyle: '500' } }, ],
+        yAxes: [{ ticks: { fontSize: 22,fontColor: 'yellow', fontStyle: '500', max: 8,min: 0,stepSize: 1,beginAtZero: true}}]
       }
     }
   });
@@ -193,15 +191,13 @@ function storage() {
   var numberOfProductStringified = JSON.stringify(allProducts);
   // console.log('storage' + numberOfProductStringified);
   localStorage.setItem('data', numberOfProductStringified);
+  localStorage.setItem('click', amountOfClicks);
 }
 
 function storegeGetData() {
   var numberOfProduct = localStorage.getItem('data');
   var parsedNumberOfProduct = JSON.parse(numberOfProduct);
-  for (var i = 0; i < parsedNumberOfProduct.length; i++){
-    new Product(parsedNumberOfProduct[i].name);
-
-  }
+  allProducts = parsedNumberOfProduct;
 }
 
 
