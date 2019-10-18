@@ -153,8 +153,8 @@ function makeChart() {
     },
     options: {
       scales: {
-        xAxes: [{ ticks: { fontSize: 22, fontFamily: '\'Roboto\', sans-serif', fontColor: 'yellow', fontStyle: '500' } }, ],
-        yAxes: [{ ticks: { fontSize: 22,fontColor: 'yellow', fontStyle: '500', max: 8,min: 0,stepSize: 1,beginAtZero: true}}]
+        xAxes: [{ ticks: { fontSize: 20, fontFamily: '\'Roboto\', sans-serif', fontColor: 'white', fontStyle: '500' } }, ],
+        yAxes: [{ ticks: { fontSize: 20,fontColor: 'white', fontStyle: '500', max: 8,min: 0,stepSize: 1,beginAtZero: true}}]
       }
     }
   });
