@@ -109,21 +109,25 @@ function handleClick() {
 
     containerEl.remove();
     makeChart();
-    localStorage.clear();
   }
 }
 Product.namesData = [];
 Product.votesData = [];
 Product.viewsData = [];
 
-var getChartData = function () {
+function getChartData() {
   for (var i = 0; i < allProducts.length; i++) {
     Product.namesData.push(allProducts[i].name);
     Product.votesData.push(allProducts[i].votes);
     Product.viewsData.push(allProducts[i].views);
 
   }
-};
+}
+
+if (amountOfClicks === numberOfrounds) {
+  containerEl.remove();
+  makeChart();
+}
 containerEl.addEventListener('click', handleClick);
 displayPics();
 
